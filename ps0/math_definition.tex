@@ -1,0 +1,49 @@
+%%% load AMS-Latex Package
+\usepackage{amsmath,amsfonts}
+\usepackage{amsthm,amssymb,amsopn}
+\usepackage{bm} % bold symbol
+
+% define fonts
+\newcommand{\vct}[1]{\boldsymbol{#1}} % vector
+\newcommand{\mat}[1]{\boldsymbol{#1}} % matrix
+
+%%%% Special math symbols
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\R}{\field{R}} % real domain
+\newcommand{\C}{\field{C}} % complex domain
+\newcommand{\F}{\field{F}} % functional domain
+%\newcommand{\T}{^{\top}\!\!} % transpose
+\newcommand{\T}{^{\textrm T}} % transpose
+\newcommand{\TN}{^{-\textrm T}} % transpose
+
+
+%%% define constant
+\newcommand{\cst}[1]{\mathsf{#1}}
+
+%% operator in linear algebra, functional analysis
+\newcommand{\inner}[2]{#1\cdot #2}
+%\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\twonorm}[1]{\|#1\|_2^2}
+% operator in functios, maps such as M: domain1 --> domain 2
+\newcommand{\Map}[1]{\mathcal{#1}}
+
+% operator in probability: expectation, covariance,
+\newcommand{\ProbOpr}[1]{\mathbb{#1}}
+% independence
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+% conditional independence
+\newcommand{\cind}[3]{{#1} \independent{#2}\,|\,#3}
+% conditional expectation
+\newcommand{\cndexp}[2]{\ProbOpr{E}\,[ #1\,|\,#2\,]}
+
+% operator in optimization
+%\DeclareMathOperator{\argmax}{arg\,max}
+%\DeclareMathOperator{\argmin}{arg\,min}
+%\newcommand{\todo}[1]{{\color{red}#1}}
+
+
+% environment
+\newtheorem{thm}{Theorem}
+
+\newcommand{\eat}[1]{}

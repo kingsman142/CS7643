@@ -1,0 +1,174 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proofs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{enumerate}[resume]
+\item (3 points) Prove that
+%
+\begin{align}
+\log_e x\leq x-1, \qquad \forall x>0
+\end{align}
+%
+with equality if and only if $x=1$.
+
+[\emph{Hint:} Consider differentiation of $\log(x)-(x-1)$ and think about concavity/convexity and second derivatives.]
+
+Let $f(x) = log(x)$ and $g(x) = x-1$.
+
+Then, $f'(x) = \frac{1}{x}$ and $g'(x) = 1$.
+
+Therefore, $\forall x \in (0, 1)$, both first-derivatives are monotonically increasing and $f(x) < g(x)$.
+
+We know $\lim_{x\to 0^+}f(x) = -\infty$ and g(0) = -1. We also know f'(x) < g'(x) $\forall x \in (0, 1)$, so we can conclude f(x) < g(x) $\forall x \in (0, 1)$.
+
+Finally, we want to show the equality iff $x = 1$. 
+
+First, we show $x = 1 \implies log(x) = x-1$: $log_e(x) = log_e(1) = 0 = (1 - 1) = (x - 1)$.
+
+Next, we show $log_e(x) = (x-1) \implies x = 1$: 
+
+$\quad log_e(x) = (x-1)$
+	
+$\quad e^{log_e(x)} = e^{x-1}$
+
+$\quad x = e^{x-1}$
+
+$\quad 1 = e^{1-1}$
+
+$\quad 1 = e^0$
+
+$\quad 1 = 1$ so x = 1
+
+$\therefore$ We have shown $log_e x \leq x - 1 \thinspace\thinspace\thinspace \forall x > 0$ and $log_e x = x - 1$ iff $x = 1$. $\hfill\ensuremath{\blacksquare}$
+
+\pagebreak
+\item (6 points)
+Consider two discrete probability distributions $p$ and $q$ over $k$ outcomes:
+%
+\begin{subequations}
+\begin{align}
+\sum_{i=1}^k p_i = \sum_{i=1}^k q_i=1 \\
+p_i > 0, q_i > 0, \quad \forall i \in \{1,\ldots,k\}
+\end{align}
+\end{subequations}
+%
+The Kullback-Leibler (KL) divergence (also known as the \emph{relative entropy}) between these distributions is given by:
+%
+\begin{equation}
+KL(p,q)=\sum_{i=1}^{k} p_i\log\left(\frac{p_i}{q_i}\right)
+\end{equation}
+%
+It is common to refer to $KL(p,q)$ as a measure of distance (even though it is not a proper metric).
+Many algorithms in machine learning are based on minimizing KL divergence between two
+probability distributions.
+In this question, we will show why this might be a sensible thing to do.\\
+
+[\emph{Hint:} This question doesn't require you to know anything more than the definition of $KL(p,q)$ and the identity
+in Q$7$]
+
+\begin{enumerate}
+\item Using the results from Q$7$, show that $KL(p,q)$ is always non-negative.
+
+We will show $KL(p, q) \geq 0$ by showing $-KL(p, q) \leq 0$.
+
+$-KL(p, q) = -\sum_{i=1}^{k} p_i log(\frac{p_i}{q_i})$
+
+$\quad = \sum_{i=1}^{k} p_i log(\frac{q_i}{p_i})$
+
+$\quad \leq \sum_{i=1}^{k} p_i (\frac{q_i}{p_i} - 1)$ since $Q7$ showed us $log(x) \leq x - 1$
+
+$\quad = \sum_{i=1}^{k} q_i - \sum_{i=1}^{k} p_i$
+
+$\quad = 1 - 1$
+
+$\quad = 0$
+
+Since we have shown $-KL(p, q) \leq 0$, we can respectively conclude $KL(p, q) \geq 0$.
+
+$\therefore$ $KL(p, q)$ is always non-negative. $\hfill\ensuremath{\blacksquare}$
+
+\pagebreak
+\item When is $KL(p,q) = 0$?
+
+When probability distributions $p$ and $q$ are identical.
+
+\pagebreak
+\item Provide a counterexample to show that the KL divergence is not a symmetric function of its arguments: $KL(p,q) \neq KL(q,p)$
+
+Let $p ~ B(2, \frac{1}{2})$ and $q ~ B(2, \frac{1}{3})$ where $B(k, p)$ is the Bernoulli distribution with $k$ samples and true-class probability $p$.
+
+$KL(p, q) = \frac{1}{2}log(\frac{\frac{1}{2}}{\frac{1}{3}}) + \frac{1}{2}log(\frac{\frac{1}{2}}{\frac{2}{3}}) = 0.088 + (-0.062) = 0.026$
+
+$KL(q, p) = \frac{1}{3}log(\frac{\frac{1}{3}}{\frac{1}{2}}) + \frac{2}{3}log(\frac{\frac{2}{3}}{\frac{1}{2}}) = (-0.059) + 0.083 = 0.025$
+
+So, by switching the arguments, we show the KL divergence is not symmetric.
+
+\end{enumerate}
+
+\pagebreak
+\item
+(6 points) In this question, you will prove that cross-entropy loss for a softmax classifier is convex in the model parameters, thus gradient
+descent is guaranteed to find the optimal parameters. Formally, consider a single training example $(\vec{x}, y)$.
+Simplifying the notation slightly from the implementation writeup, let
+\beqn
+\vec{z} = W\vec{x} + \vec{b}, \\
+p_j = \frac{e^{z_j}}{\sum_k e^{z_k}}, \\
+L(W) = - \log \left( p_{y} \right)
+\eeqn
+
+Prove that $L(\cdot)$ is convex in W.
+
+%Following the notation from the implementation part of this section, recall the
+%cross-entropy loss
+%\beqn
+%    L(W) = -\frac{1}{N} \sum_{i=1}^N \log \left( p_i^{y_i} \right)
+%\eeqn
+%
+%Show that $L$ is convex in W.
+
+[\emph{Hint:} One way of solving this problem is ``brute force'' with first principles and Hessians. There are more elegant solutions.]
+
+Assume $b \in \R$ and $W, x \in \R^n$.
+
+First, we will show $\forall j \thinspace\thinspace p_j \in (0, 1]$.
+
+We know $z \in \R$ since it's the addition of two real scalars.
+
+(*) We also know $\forall k \thinspace\thinspace e^{z_k} > 0$ since $\forall x\in\R \thinspace\thinspace e^x > 0$ ($e^x$ is strictly increasing).
+
+Due to (*), $\sum_k e^{z_k}$ is strictly positive and $\forall j \thinspace\thinspace e^{z_j} < \sum_k e^{z_k}$.
+
+Since $\forall j \thinspace\thinspace e^{z_j} < \sum_k e^{z_k}$ and both values are positive, real numbers, we get $p_j = \frac{e^{z_j}}{\sum_k e^{z_k}} \in (0, 1]$. 
+
+$\therefore$ $\forall j \thinspace\thinspace p_j \in (0, 1]$.
+
+Now, we will show $L(W) = -log(p_y)$ is a strictly decreasing function.
+
+By taking its derivative, we see $L'(W) = -\frac{1}{p_y}$.
+
+Since we have already shown $p_y$ is always positive, we conclude $L'(W)$ is always negative. 
+
+Additionally, as a side note, we observe $\lim_{x\to 0^+} -log(x) = +\infty$ and $-log(1) = 0$.
+
+So, since $L'(W)$ is always negative and $L(W)$'s range is bounded by $(+\infty, 0]$, we can conclude $L(W)$ is a strictly decreasing function with range $(+\infty, 0]$ in the domain of its input $p_y$. 
+
+$\therefore$ $L(W)$ is strictly decreasing.
+
+Finally, we will show $L(W)$ is concave up.
+
+We already showed $L'(W) = -\frac{1}{p_y}$, so the second derivative is $L''(W) = \frac{1}{p_y^2}$.
+
+Since $p_y \in (0, 1]$, $L''(W)$ is strictly positive.
+
+The second derivative measures convexity, so $L''(W) > 0 \implies L(W)$ is concave up.
+
+$\therefore$ $L(W)$ is convex.
+
+We have shown given arbitrary $W$, $p_j$ is limited to the range $(0, 1]$, limiting $L(W)$ to the range $(+\infty, 0]$ as a strictly decreasing function, resulting in a convex function.
+
+So, we have $L(\cdot)$ is convex in $W$. $\hfill\ensuremath{\blacksquare}$
+
+
+
+\end{enumerate}
+

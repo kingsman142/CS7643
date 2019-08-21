@@ -1,0 +1,230 @@
+
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{proof}{Proof}
+%\newtheorem{definition}{Definition}
+%\newtheorem{algo}{Algorithm}
+%\newtheorem{proc}{Procedure}
+%\newtheorem{rem}{Remark}
+%\newtheorem{observation}{Observation}
+%\newtheorem{proposition}{Proposition}
+
+
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{proposition}{Proposition}
+%\newtheorem{corollary}{Corollary}
+%\newtheorem{construction}{Construction}
+%\newtheorem{claim}{Claim}
+
+%\newenvironment{proof}[1][Proof]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{definition}[1][Definition]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{example}[1][Example]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{remark}[1][Remark]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+%\newcommand{\qed}{\nobreak \ifvmode \relax \else
+%      \ifdim\lastskip<1.5em \hskip-\lastskip
+%      \hskip1.5em plus0em minus0.5em \fi \nobreak
+%      \vrule height0.75em width0.5em depth0.25em\fi}
+
+
+% general symbols
+\newcommand{\RF}{\mathbb{R}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\nn}{\nonumber} 
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\sqprn}[1]{\left[ #1 \right]}
+\newcommand{\tlprn}[1]{\left\{ #1 \right\}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\tr}[2]{\left<\left< #1 , #2 \right>\right>}
+\newcommand{\trs}[2]{\left< #1 , #2 \right>}
+\newcommand{\iprod}[2]{\left\langle #1 , #2 \right\rangle}
+\newcommand{\del}{\partial}
+\newcommand{\dd}[2]{\frac{d#1}{d#2}}
+\newcommand{\ddel}[2]{\frac{\del#1}{\del#2}}
+\newcommand{\ddell}[2]{\frac{\del^2#1}{{\del#2}^2}}
+\newcommand{\ddelll}[3]{\frac{\del^2#1}{{\del#2}{\del#3}}}
+\newcommand{\beq}{\begin{eqnarray*}}
+\newcommand{\eeq}{\end{eqnarray*}}
+\newcommand{\beqn}{\begin{eqnarray}}
+\newcommand{\eeqn}{\end{eqnarray}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+%\newcommand{\hide}[1]{}
+\newcommand{\oo}[1]{\frac{1}{#1}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\evalat}[2]{\left.#1\right|_{#2}}
+\newcommand{\ceil}[1]{\ensuremath{\left\lceil#1\right\rceil}}
+\newcommand{\floor}[1]{\ensuremath{\left\lfloor#1\right\rfloor}}
+\newcommand{\ontop}[2]{\overset{{\scriptsize #1}}{#2}}
+\newcommand{\Perp}{\perp\!\!\!\perp}
+\newcommand{\limsu}{\mathop{\overline{\mathrm{lim}}}}
+\newcommand{\limin}{\mathop{\underline{\mathrm{lim}}}}
+\newcommand{\argmin}{\mathop{\mathrm{argmin}}}
+\newcommand{\argmax}{\mathop{\mathrm{argmax}}}
+\newcommand{\map}{\mathop{\mathrm{map}}}
+\newcommand{\powrs}[1]{\langle\!\langle #1 \rangle\!\rangle}
+\newcommand{\polys}[1]{\langle #1 \rangle}
+\newcommand{\contf}{\mathscr{C}}
+%\newcommand{\trn}{^{{}^\intercal}} %operator transpose
+\newcommand{\trn}{^\intercal} %operator transpose
+%\newcommand{\trn}{^{{}^{\!\intercal}}} %operator transpose
+\newcommand{\inv}{^{-1}} %inverse
+\newcommand{\unit}{\boldsymbol{1}}
+\newcommand{\zero}{\boldsymbol{0}}
+\newcommand{\defeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\pleq}{~+\!=}
+\newcommand{\chr}{\mathrm{\bs{1}\hspace{-3pt}I}} % characteristic function
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+% function names
+\newcommand{\zeros}{\mathrm{zeros}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\TR}{\mathrm{tr}}
+\newcommand{\vol}{\mathrm{vol}}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\acos}{\mathrm{acos}}
+\newcommand{\intr}{\mathrm{int}\,}
+\newcommand{\extr}{\mathrm{ext}\,}
+\newcommand{\dom}{\mathrm{dom}\,}
+\newcommand{\conv}{\mathrm{conv}\hspace{1pt}}
+\newcommand{\cone}{\mathrm{cone}\hspace{1pt}}
+
+
+%probability & statistics symbols
+\newcommand{\convd}{\overset{{\scriptsize d}}{\to}}
+\newcommand{\convp}{\overset{{\scriptsize p}}{\to}}
+\newcommand{\unif}{\mathrm{Uniform}}
+\newcommand{\bern}{\mathrm{Bernoulli}}
+\newcommand{\negbin}{\mathrm{NegBinom}}
+\newcommand{\Binom}{\mathrm{Bin}}
+\newcommand{\pois}{\mathrm{Poisson}}
+%\newcommand{\ndistr}{\mathrm{Normal}}
+\newcommand{\ndistr}{\mathrm{n}}
+\newcommand{\Bdistr}{\mathrm{Beta}}
+\newcommand{\Gdistr}{\mathrm{Gamma}}
+% f(x) = \frac{1}{\beta^\alpha\Gamma(\alpha)}x^{\alpha-1}e^{-x/\beta}
+\newcommand{\iGdistr}{\mathrm{InvGamma}} 
+% f(x) = \frac{1}{\beta^\alpha\Gamma(\alpha)}x^{-\alpha-1}e^{-1/(\beta x)}
+\newcommand{\MSE}{\mathrm{MSE}} 
+\newcommand{\MAE}{\mathrm{MAE}} 
+\newcommand{\ARE}{\mathrm{ARE}} 
+\newcommand{\se}{\mathrm{se}} 
+
+%\newcommand{\eg}{\mathrm{e.g.}} 
+%\newcommand{\st}{\mathrm{s.t.}} 
+%\newcommand{\ie}{\mathrm{i.e.}} 
+
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calI}{\mathcal{I}}
+\newcommand{\calJ}{\mathcal{J}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calQ}{\mathcal{Q}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calU}{\mathcal{U}}
+\newcommand{\calV}{\mathcal{V}}
+\newcommand{\calW}{\mathcal{W}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\calZ}{\mathcal{Z}}
+\newcommand{\tha}{\theta}
+%\newcommand{\mexp}{\mathbb{E}}
+%\newcommand{\mexp}[1]{\ensuremath{\text{{\bf E}$\left[#1\right]$}}}
+\newcommand{\mexp}{\text{{\bf E}}}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\cov}{\mathrm{Cov}}
+\newcommand{\corr}{\mathrm{Cor}}
+\newcommand{\bW}{\bs{W}}
+\newcommand{\bw}{\bs{w}}
+\newcommand{\bX}{\bs{X}}
+\newcommand{\bx}{\bs{x}}
+\newcommand{\bY}{\bs{Y}}
+\newcommand{\by}{\bs{y}}
+\newcommand{\bZ}{\bs{Z}}
+\newcommand{\bz}{\bs{z}}
+\newcommand{\Xbar}{\overline{X}}
+\newcommand{\ev}{\mathrm{Ev}} %evidence
+\newcommand{\pr}{\boldsymbol{\mathrm{P}}}
+%\newcommand{\prob}{\mathrm{Pr}}
+
+
+% embeddings
+\newcommand{\embeds}[1]{\;\lhook\joinrel\xrightarrow{#1}\;}
+
+%misc commands
+\newcommand{\ds}{\displaystyle}
+%\newcommand{\ts}{\textstyle}
+\newcommand{\bs}{\boldsymbol}
+\renewcommand{\th}{\ensuremath{^{\mathrm{th}}}~}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\usepackage{eso-pic}
+\usepackage{xspace}
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+
+\def\eg{\emph{e.g}\onedot} \def\Eg{\emph{E.g}\onedot}
+\def\ie{\emph{i.e}\onedot} \def\Ie{\emph{I.e}\onedot}
+\def\st{s.t\onedot} \def\St{\emph{S.t}\onedot}
+\def\cf{\emph{c.f}\onedot} \def\Cf{\emph{C.f}\onedot}
+\def\etc{\emph{etc}\onedot} \def\vs{\emph{vs}\onedot}
+\def\wrt{w.r.t\onedot} \def\dof{d.o.f\onedot}
+\def\etal{\emph{et al}\onedot}
+\makeatother
+
+% Miscellaneous
+\def\naive{na\"\i ve\xspace}
+\def\naively{na\"\i vely\xspace}
+\def\Naive{Na\"\i ve\xspace}
+\def\Naively{Na\"\i vely\xspace}
+
+\newcommand{\figref}[1]{Fig.~\ref{#1}}
+\newcommand{\eqnref}[1]{(\ref{#1})}
+\newcommand{\secref}[1]{Section \ref{#1}}
+\newcommand{\chapref}[1]{Chapter \ref{#1}}
+
+
+%\include{mathmacro}
+\makeatletter
+\newcommand{\bfgreek}[1]{\bm{\@nameuse{#1}}}
+\makeatother
+
+\newcommand{\ind}[1]{[\hspace{-1pt}[#1]\hspace{-1pt}] }
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\newcommand{\norm}[1]{\left| \hspace{-0.7pt}\left|#1\right| \hspace{-0.7pt}\right|}
+
+\newenvironment{indentpar}[1]%
+     {\begin{list}{}%
+             {\setlength{\leftmargin}{#1}}%
+             \item[]%
+     }
+{\end{list}}
