@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300 64-bit) (preloaded format=pdflatex 2017.9.9)  21 AUG 2019 16:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300 64-bit) (preloaded format=pdflatex 2017.9.9)  21 AUG 2019 16:15
 entering extended mode
 **./ps0.tex
 (ps0.tex
@@ -1306,10 +1306,10 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 122.
  ) 
 Here is how much of TeX's memory you used:
- 29703 strings out of 493320
- 536164 string characters out of 3145002
+ 29699 strings out of 493320
+ 536118 string characters out of 3145002
  622018 words of memory out of 3000000
- 32732 multiletter control sequences out of 15000+200000
+ 32728 multiletter control sequences out of 15000+200000
  24948 words of font info for 73 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,21n,72p,10356b,607s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1332,7 +1332,7 @@ sfrm1200.pfb><A:/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm1728.pfb><A:/MiKTeX
  2.9/fonts/type1/public/cm-super/sfti1095.pfb><A:/MiKTeX 2.9/fonts/type1/public
 /cm-super/sftt1095.pfb><A:/MiKTeX 2.9/fonts/type1/public/cm-super/sftt1200.pfb>
 
-Output written on ps0.pdf (8 pages, 342896 bytes).
+Output written on ps0.pdf (8 pages, 342910 bytes).
 PDF statistics:
  190 PDF objects out of 1000 (max. 8388607)
  39 named destinations out of 1000 (max. 500000)
