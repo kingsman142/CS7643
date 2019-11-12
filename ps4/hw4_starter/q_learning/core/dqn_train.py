@@ -62,7 +62,11 @@ class DQNTrain(QNTrain):
         #####################################################################
         # TODO: Process state to match the return output specified above.
         #####################################################################
-        pass
+        state = torch.FloatTensor(state)
+        if len(state.size()) == 3: # convert from shape (H, W, C) to (1, H, W, C) since batch size wasn't included
+            state = state.unsqueeze(0)
+
+        state = torch.div(state, self.config.high).to(self.device) # normalize state and send it to GPU
         #####################################################################
         #                             END OF YOUR CODE                      #
         #####################################################################
@@ -116,7 +120,21 @@ class DQNTrain(QNTrain):
         #       use the done_mask to compute Q_samp(s) from the equation
         #       specified above.
         #####################################################################
-        pass
+        # extract constants
+        batch_size = state.size()[0]
+
+        # calculate the value of Qsamp
+        done_mask = 1 - done_mask
+        gamma = torch.Tensor(np.tile(self.config.gamma, (batch_size))).cuda() # gamma is given to us as a scalar, but to multiple it with qsamp later, we need to tile it
+        qsamp = self.target_q_net(next_state) # batch_size x num_actions
+        qsamp = torch.max(qsamp, dim = 1)[0] # batch_size x 1
+        qsamp = reward + qsamp * done_mask * gamma # finish calculation of the 2nd term in the Qsamp
+
+        # pass the current state into the Qnet and take the argmax across the actions for each sample
+        qnet_out = self.q_net(state)
+        qnet_out = torch.gather(qnet_out, 1, action.unsqueeze(dim = 1)).squeeze()
+
+        loss = ((qsamp - qnet_out)**2).sum()
         #####################################################################
         #                             END OF YOUR CODE                      #
         #####################################################################
@@ -134,7 +152,8 @@ class DQNTrain(QNTrain):
         # torch.nn.Module.load_state_dict and torch.nn.Module.state_dict
         # This should just take 1-2 lines of code.
         #####################################################################
-        pass
+        state_dict = self.q_net.state_dict()
+        self.target_q_net.load_state_dict(state_dict)
         #####################################################################
         #                             END OF YOUR CODE                      #
         #####################################################################
@@ -215,7 +234,22 @@ class DQNTrain(QNTrain):
         #   of the gradients using self.module_grad_norm on self.q_net
         #   AFTER calling backward.
         #####################################################################
-        pass
+        # preprocess data
+        states = self.process_state(s_batch)
+        actions = torch.LongTensor(a_batch).to(self.device)
+        rewards = torch.FloatTensor(r_batch).to(self.device)
+        state_probs = self.process_state(sp_batch).to(self.device)
+        done_masks = torch.FloatTensor(done_mask_batch).to(self.device)
+
+        # calculate loss
+        q_loss = self.forward_loss(states, actions, rewards, state_probs, done_masks)
+
+        # backpropagation
+        self.optimizer.zero_grad()
+        q_loss.backward()
+        self.optimizer.step()
+
+        grad_norm_eval = self.module_grad_norm(self.q_net)
         #####################################################################
         #                             END OF YOUR CODE                      #
         #####################################################################

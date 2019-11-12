@@ -54,7 +54,32 @@ def policy_evaluation(P, nS, nA, policy, gamma=0.9, tol=1e-3):
     #####################################################################
     # YOUR IMPLEMENTATION HERE
     #####################################################################
+    iter = 0
+    while True:
+        prev_value_function = value_function # store the previous value function values so we can check for convergence later
+        for s in range(nS): # get a value for each state
+            action_vals = []
 
+            # for this given state, calculate the value of each action
+            state_val = 0.0
+            for out in P[s][policy[s]]:
+                probability, nextstate, reward, terminal = out # if we perform this action, where do we go next?
+                curr_val = reward
+                if not terminal: # if this is not a terminal node, add a penalty for future rewards
+                    curr_val += gamma * prev_value_function[nextstate]
+                curr_val *= probability # calculate the current value for this s' from this action (multiple s' states in the stochastic case, but only one in the deterministic case)
+                state_val += curr_val
+
+            # update the 'future' value reward for this state, as well as the 'policy' for this state (which action to take)
+            value_function[s] = state_val # for this given state, take the action with the highest reward
+
+        # check if the values have converged
+        # NOTE: Since multiple actions can have the same reward, and we choose a random action to favor exploration, we need to add a threshold
+        #       on the number of iterations before breaking this while loop because on some iterations, due to randomness, the value iteration
+        #       might not have changed early on.
+        if np.max(np.absolute(np.subtract(value_function, prev_value_function))) < tol and iter >= 100:
+            break
+        iter += 1
     #####################################################################
     #                             END OF YOUR CODE                      #
     #####################################################################
@@ -86,7 +111,23 @@ def policy_improvement(P, nS, nA, value_from_policy, policy, gamma=0.9):
     #####################################################################
     # YOUR IMPLEMENTATION HERE
     #####################################################################
-    pass
+    for s in range(nS):
+        action_vals = [] # keep track of value of each action for this state
+        for a in range(nA):
+            action_val = 0.0
+            for out in P[s][a]:
+                probability, nextstate, reward, terminal = out # if we perform this action, where do we go next?
+                curr_val = reward
+                if not terminal: # if this is not a terminal node, add a penalty for future rewards
+                    curr_val += gamma * value_from_policy[nextstate]
+                curr_val *= probability # calculate the current value for this s' from this action (multiple s' states in the stochastic case, but only one in the deterministic case)
+                action_val += curr_val # keep track of this action's value
+            action_vals.append(action_val)
+
+        # for this state, find the best action
+        max_indices = np.argwhere(action_vals == np.max(action_vals)).flatten().tolist() # find ALL actions with the highest reward, not just the first one
+        best_action_index = np.random.choice(max_indices) # if there are multiple actions with max reward, randomly choose one
+        new_policy[s] = best_action_index # set the best action for this state
     #####################################################################
     #                             END OF YOUR CODE                      #
     #####################################################################
@@ -117,7 +158,16 @@ def policy_iteration(P, nS, nA, gamma=0.9, tol=10e-3):
     #####################################################################
     # YOUR IMPLEMENTATION HERE
     #####################################################################
-    pass
+    while True:
+        # policy evaluation
+        value_function = policy_evaluation(P, nS, nA, policy, gamma, tol)
+
+        # policy improvement
+        old_policy = policy # keep track of this to check for convergence
+        policy = policy_improvement(P, nS, nA, value_function, policy, gamma)
+
+        if np.max(np.absolute(np.subtract(policy, old_policy))) < tol: # the policy hasn't changed at all, so we terminate
+            break
     #####################################################################
     #                             END OF YOUR CODE                      #
     #####################################################################
@@ -147,31 +197,40 @@ def value_iteration(P, nS, nA, gamma=0.9, tol=1e-3):
     #####################################################################
     # YOUR IMPLEMENTATION HERE
     #####################################################################
+    iter = 0
     while True:
-        prev_value_function = value_function
+        prev_value_function = value_function # store the previous value function values so we can check for convergence later
         for s in range(nS): # get a value for each state
             action_vals = []
-            print("STATE {}".format(s))
 
+            # for this given state, calculate the value of each action
             for a in range(nA): # get a value for each action so we can take the best action later on
-                probability, nextstate, reward, terminal = P[s][a][0] # if we perform this action, where do we go next?
-                val = reward
-                if not terminal: # if this is not a terminal node, add a penalty for future rewards
-                    val += gamma * prev_value_function[nextstate]
-                action_vals.append(val)
-                print("\tACTION {}: {}".format(a, val))
-                print("\t{}, {}, {}, {}".format(probability, nextstate, reward, terminal))
+                running_val = 0.0
+                for out in P[s][a]:
+                    probability, nextstate, reward, terminal = out # if we perform this action, where do we go next?
+                    curr_val = reward
+                    if not terminal: # if this is not a terminal node, add a penalty for future rewards
+                        curr_val += gamma * prev_value_function[nextstate]
+                    curr_val *= probability # calculate the current value for this s' from this action (multiple s' states in the stochastic case, but only one in the deterministic case)
+                    running_val += curr_val # keep track of this action's value
+                action_vals.append(running_val)
 
-            max_indices = np.argwhere(action_vals == np.max(action_vals)).flatten().tolist()
+            # for this state, find the best action
+            max_indices = np.argwhere(action_vals == np.max(action_vals)).flatten().tolist() # find ALL actions with the highest reward, not just the first one
             best_action_index = np.random.choice(max_indices) # if there are multiple actions with max reward, randomly choose one
             best_action_val = action_vals[best_action_index] # actual reward value of the best action
-            print("\tMAX ACTIONS: {}".format(max_indices))
-            print("\tCHOSE ACTION {}".format(best_action_index))
 
+            # update the 'future' value reward for this state, as well as the 'policy' for this state (which action to take)
             value_function[s] = best_action_val # for this given state, take the action with the highest reward
             policy[s] = best_action_index # set the best action for this state
-        if np.max(np.abs(value_function - prev_value_function)) < tol: # check if the values have converged
+
+        # check if the values have converged
+        # NOTE: Since multiple actions can have the same reward, and we choose a random action to favor exploration, we need to add a threshold
+        #       on the number of iterations before breaking this while loop because on some iterations, due to randomness, the value iteration
+        #       might not have changed early on.
+        if np.max(np.absolute(np.subtract(value_function, prev_value_function))) < tol and iter >= 100:
             break
+        iter += 1
     #####################################################################
     #                             END OF YOUR CODE                      #
     #####################################################################
